@@ -557,6 +557,29 @@ footer { background: var(--bg-primary); border-top: 1px solid rgba(29,111,235,0.
 .co-spinner { width: 18px; height: 18px; border: 2.5px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; display: inline-block; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
+/* ADD-ONS STEP */
+.bk-addon-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+.bk-addon-card { border: 1.5px solid #E2E8F0; border-radius: 8px; padding: 12px; cursor: pointer; transition: all 0.2s; position: relative; display: flex; gap: 10px; align-items: flex-start; }
+.bk-addon-card:hover { border-color: #93C5FD; }
+.bk-addon-card.selected { border-color: #D4A843; background: rgba(212,168,67,0.06); }
+.bk-addon-card .addon-check { width: 20px; height: 20px; border-radius: 4px; border: 1.5px solid #D1D5DB; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.2s; margin-top: 1px; }
+.bk-addon-card.selected .addon-check { background: #D4A843; border-color: #D4A843; }
+.bk-addon-card .addon-check svg { width: 12px; height: 12px; stroke: #fff; fill: none; stroke-width: 3; display: none; }
+.bk-addon-card.selected .addon-check svg { display: block; }
+.bk-addon-card .addon-info { flex: 1; }
+.bk-addon-card .addon-name { font-family: var(--heading); font-size: 0.78rem; font-weight: 700; color: #111827; letter-spacing: 0.5px; text-transform: uppercase; }
+.bk-addon-card .addon-desc { font-size: 0.72rem; color: #64748B; margin-top: 2px; line-height: 1.4; }
+.bk-addon-card .addon-price { font-family: var(--heading); font-weight: 700; font-size: 0.82rem; color: #1D6FEB; margin-top: 4px; }
+.bk-social-proof { font-size: 0.78rem; color: #64748B; margin-bottom: 14px; line-height: 1.5; }
+.bk-skip-link { display: block; text-align: center; margin-top: 8px; color: #94A3B8; font-size: 0.78rem; cursor: pointer; text-decoration: none; transition: color 0.2s; background: none; border: none; font-family: var(--body); width: 100%; }
+.bk-skip-link:hover { color: #64748B; }
+/* ORDER SUMMARY */
+.bk-order-summary { background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px; padding: 14px 16px; margin-top: 16px; }
+.bk-order-summary .os-title { font-family: var(--heading); font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #64748B; margin-bottom: 8px; }
+.bk-order-summary .os-line { display: flex; justify-content: space-between; font-size: 0.82rem; color: #334155; padding: 4px 0; }
+.bk-order-summary .os-line.os-addon { color: #64748B; font-size: 0.78rem; }
+.bk-order-summary .os-total { display: flex; justify-content: space-between; font-family: var(--heading); font-size: 1rem; font-weight: 700; color: #111827; padding-top: 8px; margin-top: 8px; border-top: 1px solid #E2E8F0; }
+
 /* #8 Gift voucher modal */
 .gift-modal-inner { padding: 28px; }
 .gift-amount-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
@@ -679,6 +702,7 @@ img.lazy-fade.loaded { opacity: 1; }
   .urgency-banner { padding: 8px 20px; font-size: 0.72rem; }
   /* Booking modal */
   .bk-times { grid-template-columns: repeat(3, 1fr); }
+  .bk-addon-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 480px) {
@@ -1659,12 +1683,12 @@ img.lazy-fade.loaded { opacity: 1; }
 <!-- #1 BOOKING MODAL (Multi-step) -->
 <div class="modal-overlay" id="bookingOverlay" onclick="if(event.target===this)closeBooking()" role="dialog" aria-modal="true" aria-label="Book your wash">
   <div class="modal" id="bookingModal">
-    <div class="preview-banner">PREVIEW MODE — Payment processing will be connected during setup</div>
     <button class="modal-close" onclick="closeBooking()" aria-label="Close booking">×</button>
     <div class="booking-inner">
       <h3>Book Your Wash</h3>
       <div class="booking-progress" id="bkProgress">
         <div class="bp-step active"></div>
+        <div class="bp-step"></div>
         <div class="bp-step"></div>
         <div class="bp-step"></div>
         <div class="bp-step"></div>
@@ -1709,31 +1733,45 @@ img.lazy-fade.loaded { opacity: 1; }
         <div class="bk-btn-row"><button class="bk-btn bk-btn-back" onclick="nextStep(2)">← Back</button><button class="bk-btn bk-btn-next" onclick="nextStep(4)" id="bkNext3" disabled="">Next →</button></div>
       </div>
 
-      <!-- Step 4: Details -->
+      <!-- Step 4: Extras -->
       <div class="bk-step" id="bkStep4" style="display:none;">
-        <div class="step-label">Step 4 — Your Details</div>
+        <div class="step-label">Step 4 — Boost Your Wash</div>
+        <h4 style="font-family:var(--heading); font-size:1.05rem; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:#111827; margin-bottom:4px;">Boost Your Wash</h4>
+        <p style="font-size:0.82rem; color:#64748B; margin-bottom:14px;">Add on extras while you're here — most customers add at least one.</p>
+        <div class="bk-social-proof">⭐ 73% of customers add at least one extra — most popular: Dashboard Protectant</div>
+        <div class="bk-addon-grid" id="bkAddonGrid"></div>
+        <div class="bk-btn-row"><button class="bk-btn bk-btn-back" onclick="nextStep(3)">← Back</button><button class="bk-btn bk-btn-next" onclick="nextStep(5)">Next →</button></div>
+        <button class="bk-skip-link" onclick="nextStep(5)">No thanks, skip extras →</button>
+      </div>
+
+      <!-- Step 5: Details -->
+      <div class="bk-step" id="bkStep5" style="display:none;">
+        <div class="step-label">Step 5 — Your Details</div>
         <input class="bk-input" id="bkName" placeholder="Full name" autocomplete="name" aria-label="Full name">
         <input class="bk-input" id="bkEmail" placeholder="Email address" type="email" autocomplete="email" aria-label="Email">
         <input class="bk-input" id="bkPhone" placeholder="Phone number" type="tel" autocomplete="tel" aria-label="Phone">
         <input class="bk-input" id="bkRego" placeholder="Vehicle rego (e.g. ABC123)" maxlength="7" aria-label="Vehicle registration">
-        <div class="bk-btn-row"><button class="bk-btn bk-btn-back" onclick="nextStep(3)">← Back</button><button class="bk-btn bk-btn-next" onclick="nextStep(5)">Next →</button></div>
+        <div class="bk-btn-row"><button class="bk-btn bk-btn-back" onclick="nextStep(4)">← Back</button><button class="bk-btn bk-btn-next" onclick="nextStep(6)">Next →</button></div>
       </div>
 
-      <!-- Step 5: Payment -->
-      <div class="bk-step" id="bkStep5" style="display:none;">
-        <div class="step-label">Step 5 — Payment</div>
-        <div class="bk-price-display" style="margin-bottom:20px;">
-          <div class="bk-price" id="bkFinalPrice">$65</div>
-          <div class="bk-service-name" id="bkFinalLabel">Premium Wash — Sedan</div>
-        </div>
+      <!-- Step 6: Payment -->
+      <div class="bk-step" id="bkStep6" style="display:none;">
+        <div class="step-label">Step 6 — Payment</div>
         <div class="bk-label">Card Details</div>
         <div class="card-input-group">
           <input class="card-number" placeholder="4242 4242 4242 4242" maxlength="19" inputmode="numeric" aria-label="Card number">
           <input class="card-expiry" placeholder="MM/YY" maxlength="5" inputmode="numeric" aria-label="Expiry date">
           <input class="card-cvc" placeholder="CVC" maxlength="4" inputmode="numeric" aria-label="CVC">
         </div>
-        <div class="bk-btn-row"><button class="bk-btn bk-btn-back" onclick="nextStep(4)">← Back</button><button class="bk-btn bk-btn-next" id="bkPayBtn" onclick="processBooking()">Pay Now</button></div>
+        <div class="bk-btn-row"><button class="bk-btn bk-btn-back" onclick="nextStep(5)">← Back</button><button class="bk-btn bk-btn-next" id="bkPayBtn" onclick="processBooking()">Pay Now</button></div>
         <div class="stripe-badge">Powered by <b>Stripe</b></div>
+      </div>
+
+      <!-- Order Summary (visible from step 2 onwards) -->
+      <div class="bk-order-summary" id="bkOrderSummary" style="display:none;">
+        <div class="os-title">Order Summary</div>
+        <div id="bkOrderLines"></div>
+        <div class="os-total"><span>Total</span><span id="bkOrderTotal">$0</span></div>
       </div>
 
       <!-- Success -->
@@ -1904,15 +1942,29 @@ const prices = {
   'Premium Member': {sedan:99,suv:109,'4wd':119},
   'Loyalty Club': {sedan:0,suv:0,'4wd':0}
 };
+const addonItems = [
+  {id:'protectant', name:'Dashboard & Console Protectant', desc:'Shields against UV and cracking', price:{sedan:10,suv:10,'4wd':10}},
+  {id:'tar', name:'Remove Tar & Bugs', desc:'Stubborn grime removed by hand', price:{sedan:10,suv:10,'4wd':10}},
+  {id:'leather', name:'Leather Conditioning', desc:'Deep nourishment for leather seats', price:{sedan:80,suv:80,'4wd':80}},
+  {id:'steam', name:'Interior Steam Deep Clean', desc:'Per seat, kills bacteria and odours', price:{sedan:40,suv:40,'4wd':40}, unit:'/seat'},
+  {id:'headlight', name:'Headlight Restoration', desc:'Restore clarity and brightness', price:{sedan:60,suv:60,'4wd':60}},
+  {id:'engine', name:'Engine Bay Clean', desc:'Full degreaser clean of engine bay', price:{sedan:60,suv:60,'4wd':60}},
+  {id:'clay', name:'Clay Bar Treatment', desc:'Deep decontamination for silky paint', price:{sedan:70,suv:80,'4wd':90}},
+  {id:'polish', name:'Machine Polish', desc:'Multi-stage cut and polish', price:{sedan:260,suv:310,'4wd':360}},
+  {id:'pickup', name:'Pickup & Delivery', desc:'We come to you, within 30km', price:{sedan:30,suv:30,'4wd':30}}
+];
+let selectedAddons = new Set();
 let bkCurrentStep = 1;
 let bkVehicle = 'sedan';
 
 function openBooking(service) {
   bkCurrentStep = 1;
   bkVehicle = sessionStorage.getItem('glossVehicle') || 'sedan';
+  selectedAddons = new Set();
   // Reset all steps
-  for (let i = 1; i <= 5; i++) document.getElementById('bkStep' + i).style.display = 'none';
+  for (let i = 1; i <= 6; i++) document.getElementById('bkStep' + i).style.display = 'none';
   document.getElementById('bkStepSuccess').style.display = 'none';
+  document.getElementById('bkOrderSummary').style.display = 'none';
   document.getElementById('bkStep1').style.display = '';
   updateProgressBar(1);
   // #11 Auto-select service if passed
@@ -1948,11 +2000,24 @@ function updateProgressBar(step) {
 
 function nextStep(step) {
   bkCurrentStep = step;
-  for (let i = 1; i <= 5; i++) document.getElementById('bkStep' + i).style.display = 'none';
+  for (let i = 1; i <= 6; i++) document.getElementById('bkStep' + i).style.display = 'none';
   document.getElementById('bkStepSuccess').style.display = 'none';
   document.getElementById('bkStep' + step).style.display = '';
   updateProgressBar(step);
-  if (step === 2 || step === 5) updateBookingPrice();
+  if (step === 4) renderAddonCards();
+  if (step === 2 || step === 6) updateBookingPrice();
+  // Show order summary from step 2 onwards
+  document.getElementById('bkOrderSummary').style.display = step >= 2 ? '' : 'none';
+  if (step >= 2) renderOrderSummary();
+}
+
+function getAddonsTotal() {
+  let total = 0;
+  selectedAddons.forEach(id => {
+    const item = addonItems.find(a => a.id === id);
+    if (item) total += item.price[bkVehicle] || item.price.sedan;
+  });
+  return total;
 }
 
 function updateBookingPrice() {
@@ -1961,11 +2026,58 @@ function updateBookingPrice() {
   if (!svc) return;
   const p = prices[svc];
   if (!p) return;
-  const price = p[bkVehicle] || p.sedan;
-  document.getElementById('bkPriceVal').textContent = '$' + price;
+  const basePrice = p[bkVehicle] || p.sedan;
+  const total = basePrice + getAddonsTotal();
+  document.getElementById('bkPriceVal').textContent = '$' + basePrice;
   document.getElementById('bkPriceLabel').textContent = svc + ' — ' + vehicleNames[bkVehicle];
-  document.getElementById('bkFinalPrice').textContent = '$' + price;
-  document.getElementById('bkFinalLabel').textContent = svc + ' — ' + vehicleNames[bkVehicle];
+  renderOrderSummary();
+}
+
+function renderAddonCards() {
+  const grid = document.getElementById('bkAddonGrid');
+  let html = '';
+  addonItems.forEach(item => {
+    const p = item.price[bkVehicle] || item.price.sedan;
+    const sel = selectedAddons.has(item.id) ? ' selected' : '';
+    html += '<div class="bk-addon-card' + sel + '" onclick="toggleAddon(\'' + item.id + '\')">';
+    html += '<div class="addon-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>';
+    html += '<div class="addon-info">';
+    html += '<div class="addon-name">' + item.name + '</div>';
+    html += '<div class="addon-desc">' + item.desc + '</div>';
+    html += '<div class="addon-price">$' + p + (item.unit || '') + '</div>';
+    html += '</div></div>';
+  });
+  grid.innerHTML = html;
+}
+
+function toggleAddon(id) {
+  if (selectedAddons.has(id)) {
+    selectedAddons.delete(id);
+  } else {
+    selectedAddons.add(id);
+  }
+  renderAddonCards();
+  renderOrderSummary();
+}
+
+function renderOrderSummary() {
+  const svc = document.getElementById('bkService').value;
+  if (!svc) return;
+  const p = prices[svc];
+  if (!p) return;
+  const basePrice = p[bkVehicle] || p.sedan;
+  let html = '<div class="os-line"><span>' + svc + ' (' + vehicleNames[bkVehicle] + ')</span><span>$' + basePrice + '</span></div>';
+  let total = basePrice;
+  selectedAddons.forEach(id => {
+    const item = addonItems.find(a => a.id === id);
+    if (item) {
+      const ap = item.price[bkVehicle] || item.price.sedan;
+      html += '<div class="os-line os-addon"><span>+ ' + item.name + '</span><span>$' + ap + '</span></div>';
+      total += ap;
+    }
+  });
+  document.getElementById('bkOrderLines').innerHTML = html;
+  document.getElementById('bkOrderTotal').textContent = '$' + total;
 }
 
 function selectVehicle(btn) {
@@ -1974,6 +2086,7 @@ function selectVehicle(btn) {
   btn.classList.add('active');
   sessionStorage.setItem('glossVehicle', bkVehicle);
   updateBookingPrice();
+  renderOrderSummary();
 }
 
 // Calendar
@@ -2036,7 +2149,8 @@ function processBooking() {
   btn.disabled = true;
   btn.innerHTML = '<span class="co-spinner"></span> Processing...';
   setTimeout(() => {
-    for (let i = 1; i <= 5; i++) document.getElementById('bkStep' + i).style.display = 'none';
+    for (let i = 1; i <= 6; i++) document.getElementById('bkStep' + i).style.display = 'none';
+    document.getElementById('bkOrderSummary').style.display = 'none';
     document.getElementById('bkStepSuccess').style.display = '';
     const email = document.getElementById('bkEmail').value || 'your email';
     document.getElementById('bkConfirmEmail').textContent = email;
