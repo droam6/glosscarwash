@@ -337,10 +337,11 @@ section { padding: 96px 48px; }
 
 /* BRAND LOGO GRID */
 .brand-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 16px; max-width: 1100px; margin: 0 auto; }
-.brand-tile { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 6px; padding: 16px 12px; display: flex; align-items: center; justify-content: center; min-height: 60px; transition: all 0.3s; filter: grayscale(100%); opacity: 0.6; }
-.brand-tile:hover { filter: grayscale(0%); opacity: 1; transform: scale(1.05); border-color: rgba(29,111,235,0.3); }
-.brand-tile img { max-height: 32px; max-width: 80px; object-fit: contain; }
-.brand-tile .brand-text { font-family: var(--heading); font-size: 0.6rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); text-align: center; }
+.brand-tile { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 6px; padding: 14px 20px; display: flex; align-items: center; justify-content: center; min-height: 60px; transition: all 0.2s; font-family: var(--heading); font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-align: center; }
+.brand-tile:hover { border-color: var(--steel); background: var(--bg-surface); color: var(--white); }
+.brand-tile.has-logo { padding: 10px 14px; }
+.brand-tile.has-logo img { max-height: 36px; max-width: 100%; object-fit: contain; filter: grayscale(1); opacity: 0.7; transition: all 0.3s; }
+.brand-tile.has-logo:hover img { filter: none; opacity: 1; }
 
 /* MEMBERSHIP TEASER */
 .membership-teaser {
@@ -592,8 +593,9 @@ img.lazy-fade.loaded { opacity: 1; }
   .trust-strip { margin: -32px 16px 0; padding: 20px; flex-wrap: wrap; justify-content: center; gap: 16px; }
   .trust-item { flex: 0 0 calc(50% - 16px); }
   .vehicle-tiers { gap: 6px; }
-  .vehicle-tier { padding: 8px 10px; font-size: 0.68rem; flex: 1; min-width: 60px; }
-  .vehicle-tier svg { width: 24px; height: 16px; }
+  .vehicle-tier { padding: 8px 8px; font-size: 0.62rem; flex: 0 0 calc(33.333% - 6px); min-width: 0; }
+  .vehicle-tier svg { width: 22px; height: 14px; }
+  .vehicle-tier .tier-sublabel { font-size: 0.5rem; }
   .pricing-grid { grid-template-columns: 1fr; gap: 16px; }
   .pricing-card.featured { transform: none; }
   .services-grid { grid-template-columns: 1fr; gap: 16px; }
@@ -635,6 +637,8 @@ img.lazy-fade.loaded { opacity: 1; }
   .hiw-steps { flex-direction: column; align-items: center; }
   .hiw-step { flex: none; width: 100%; max-width: 200px; }
   .brand-grid { grid-template-columns: repeat(3, 1fr); }
+  .faq-q { min-height: 48px; padding: 16px 0; }
+  .modal { max-width: 100%; margin: 10px; border-radius: 8px; }
 }
 </style>
 
@@ -763,7 +767,7 @@ img.lazy-fade.loaded { opacity: 1; }
       <img class="card-img lazy-fade loaded" src="./index_files/photo-1601362840469-51e4d8d58785" alt="Hand car washing" loading="lazy" onload="this.classList.add('loaded')">
       <div class="card-body">
         <h3>Car Washing</h3>
-        <p>Three tiers of hand car washing. Express, Premium, and Gloss Polish. From a quick exterior clean to a proper inside-and-out wash with hand applied cream polish.</p>
+        <p>Three wash tiers across five vehicle sizes. Express, Premium, and Gloss Polish. From a quick exterior clean to a proper inside-and-out wash with hand applied cream polish.</p>
         <div class="service-price">From $29</div>
         <a class="learn-more" onclick="showPage('services')">View Packages &rarr;</a>
       </div>
@@ -802,7 +806,7 @@ img.lazy-fade.loaded { opacity: 1; }
 <section class="centered" data-aos="fade-up">
   <div class="section-label">Our Packages</div>
   <h2 class="section-title">Choose Your Wash</h2>
-  <p class="section-desc">Three tiers. One standard &mdash; perfection. Select your vehicle to see your price.</p>
+  <p class="section-desc">Three wash tiers, five vehicle sizes &mdash; one standard. Select your vehicle to see your price.</p>
   <div class="vehicle-tiers" id="homeTiers"></div>
   <div class="pricing-grid" id="homeGrid"></div>
   <div class="pricing-disclaimer">All prices include GST. Additional charges may apply for heavily soiled vehicles, excessive dog hair, tar removal, bug removal, or where extra time and labour are required.</div>
@@ -883,7 +887,18 @@ img.lazy-fade.loaded { opacity: 1; }
   <div class="section-label">Trusted</div>
   <h2 class="section-title">Trusted by Owners of Every Make</h2>
   <p class="section-desc">From daily drivers to prestige vehicles.</p>
-  <!-- BRAND LOGOS: Drop clean SVG files into ./assets/logos/ matching the filenames listed in the brand grid below. Recommended source: vehicle-logos.org or Wikipedia Commons. Filenames must match exactly. -->
+  <!--
+    BRAND LOGOS — to upgrade text tiles to images:
+    Drop clean SVG files into ./assets/logos/ matching these filenames:
+    audi.svg, bmw.svg, byd.svg, chery.svg, ford.svg, genesis.svg, gwm.svg,
+    haval.svg, holden.svg, honda.svg, hyundai.svg, isuzu.svg, jeep.svg, kia.svg,
+    land-rover.svg, ldv.svg, lexus.svg, mazda.svg, mercedes.svg, mg.svg, mini.svg,
+    mitsubishi.svg, nissan.svg, peugeot.svg, polestar.svg, porsche.svg, ram.svg,
+    renault.svg, skoda.svg, subaru.svg, suzuki.svg, tesla.svg, toyota.svg,
+    volkswagen.svg, volvo.svg
+    Recommended source: vehicle-logos.org or Wikipedia Commons.
+    No code changes needed — JS will detect and hydrate automatically.
+  -->
   <div class="brand-grid" id="brandGrid"></div>
 </section>
 
@@ -919,7 +934,7 @@ img.lazy-fade.loaded { opacity: 1; }
 <section style="padding-top:120px;" class="centered" data-aos="fade-up">
   <div class="section-label">Full Menu</div>
   <h2 class="section-title">Car Wash Packages</h2>
-  <p class="section-desc">Three tiers of hand car washing. Select your vehicle type to see pricing.</p>
+  <p class="section-desc">Three wash tiers, five vehicle sizes. Select your vehicle type to see pricing.</p>
   <div class="vehicle-tiers" id="svcTiers"></div>
   <div class="pricing-grid" id="svcGrid"></div>
   <div class="pricing-disclaimer">All prices include GST. Additional charges may apply for heavily soiled vehicles, excessive dog hair, tar removal, bug removal, or where extra time and labour are required. Due to the wide variety of XXL sizes and number of seats, Gloss reserves the right to charge an additional fee if the advertised cost is insufficient to clean the vehicle to the desired standard. Any additional fee will be discussed and agreed with the customer upfront.</div>
@@ -1142,8 +1157,8 @@ img.lazy-fade.loaded { opacity: 1; }
       <p style="margin-top:12px;">710 Pennant Hills Road<br>Carlingford NSW 2118</p>
       <p style="margin-top:8px;"><a href="tel:0405075451" style="color:var(--accent); text-decoration:none;">0405 075 451</a></p>
       <p style="margin-top:4px;"><a href="mailto:info@glosscarwash.com.au" style="color:var(--muted); text-decoration:none; font-size:0.85rem;">info@glosscarwash.com.au</a></p>
-      <!-- TODO: Replace placeholder ABN -->
-      <p style="margin-top:8px; color:var(--muted-dark); font-size:0.78rem;">ABN: XX XXX XXX XXX</p>
+      <!-- ABN: XX XXX XXX XXX -->
+      <!-- TODO: Jack to confirm Lucas's ABN. Once received, replace this entire commented block with: <p style="margin-top:8px; color:var(--muted-dark); font-size:0.78rem;">ABN: [real ABN]</p> -->
     </div>
     <div class="footer-col">
       <h4>Services</h4>
@@ -1594,8 +1609,28 @@ function renderBrands() {
   if (!el) return;
   el.innerHTML = BRANDS.map((b, i) => {
     const slug = b.toLowerCase().replace(/ /g, '-');
-    return '<div class="brand-tile" data-aos="fade-up" data-aos-delay="' + ((i % 7) * 50) + '"><img src="./assets/logos/' + slug + '.svg" alt="' + b + '" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'block\'"><span class="brand-text" style="display:none">' + b + '</span></div>';
+    return '<div class="brand-tile" data-brand="' + slug + '" data-logo="./assets/logos/' + slug + '.svg" aria-label="' + b + '" data-aos="fade-up" data-aos-delay="' + ((i % 7) * 50) + '">' + b + '</div>';
   }).join('');
+}
+
+async function hydrateBrandLogos() {
+  const tiles = document.querySelectorAll('.brand-tile[data-logo]');
+  for (const tile of tiles) {
+    const url = tile.dataset.logo;
+    try {
+      const response = await fetch(url, { method: 'HEAD' });
+      if (response.ok) {
+        const img = document.createElement('img');
+        img.src = url;
+        img.alt = tile.getAttribute('aria-label');
+        tile.textContent = '';
+        tile.appendChild(img);
+        tile.classList.add('has-logo');
+      }
+    } catch (e) {
+      // Silent fail — text fallback stays
+    }
+  }
 }
 
 function renderAllPricing() {
@@ -1867,6 +1902,7 @@ document.addEventListener('DOMContentLoaded', function() {
   renderWhyPillars();
   renderValues();
   renderBrands();
+  hydrateBrandLogos();
 
   // Init AOS
   if (typeof AOS !== 'undefined') {
