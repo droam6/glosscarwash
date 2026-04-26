@@ -16,7 +16,7 @@
 <!-- GOOGLE TAG MANAGER -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet">
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.min.js" defer></script>
@@ -71,6 +71,7 @@
   --border: rgba(255,255,255,0.06);
   --heading: 'Syne', system-ui, sans-serif;
   --body: 'Satoshi', system-ui, sans-serif;
+  --font-numeric: 'Space Grotesk', system-ui, monospace;
 }
 html { scroll-behavior: smooth; }
 body { font-family: var(--body); background: var(--bg-primary); color: var(--white); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
@@ -185,6 +186,7 @@ body.urgency-visible #page-contact > section:first-child { padding-top: 156px; }
 }
 .trust-item { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; }
 .trust-number { font-family: var(--heading); font-size: 1.6rem; font-weight: 800; color: var(--accent); }
+.trust-number.numeric { font-family: var(--font-numeric); font-feature-settings: "tnum" 1, "lnum" 1; font-weight: 700; }
 .trust-label { font-family: var(--body); font-size: 0.7rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
 
 /* HOW IT WORKS */
@@ -262,8 +264,9 @@ section { padding: 96px 48px; }
 .pricing-card .tier-name { font-family: var(--heading); font-size: 1.1rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--steel); margin-bottom: 4px; margin-top: 8px; }
 .pricing-card .tier-tagline { font-size: 0.8rem; color: var(--muted); margin-bottom: 8px; font-style: italic; }
 .pricing-card .tier-time { font-size: 0.72rem; color: var(--muted-dark); margin-bottom: 16px; }
-.pricing-card .price { font-family: var(--heading); font-size: 3.5rem; font-weight: 800; color: var(--white); line-height: 1; margin-bottom: 4px; transition: opacity 0.15s ease, transform 0.15s ease; }
+.pricing-card .price { font-family: var(--font-numeric); font-feature-settings: "tnum" 1, "lnum" 1; font-size: 3.5rem; font-weight: 700; color: var(--white); line-height: 1; margin-bottom: 4px; transition: opacity 0.15s ease, transform 0.15s ease; }
 .pricing-card.featured .price { font-size: 4rem; }
+.dollar { font-size: 0.8em; vertical-align: 0.05em; opacity: 0.85; }
 .pricing-card .price-from { font-size: 0.8rem; color: var(--muted); margin-bottom: 24px; }
 .pricing-card ul { list-style: none; flex: 1; margin-bottom: 28px; }
 .pricing-card li { padding: 8px 0; font-size: 0.88rem; color: var(--muted); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
@@ -282,7 +285,7 @@ section { padding: 96px 48px; }
 .service-card .card-body { padding: 28px 24px; display: flex; flex-direction: column; flex: 1; }
 .service-card h3 { font-family: var(--heading); font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; }
 .service-card p { color: var(--muted); font-size: 0.88rem; line-height: 1.6; flex: 1; margin-bottom: 16px; }
-.service-card .service-price { font-family: var(--heading); font-size: 1.3rem; font-weight: 700; color: var(--accent); }
+.service-card .service-price { font-family: var(--font-numeric); font-feature-settings: "tnum" 1, "lnum" 1; font-size: 1.3rem; font-weight: 700; color: var(--accent); }
 .service-card .learn-more { color: var(--accent); font-size: 0.82rem; text-decoration: none; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-top: 8px; cursor: pointer; transition: color 0.3s; }
 .service-card .learn-more:hover { color: var(--accent-light); }
 
@@ -372,7 +375,7 @@ section { padding: 96px 48px; }
 .addon-item:hover { border-color: rgba(29,111,235,0.3); }
 .addon-item h4 { font-family: var(--heading); font-size: 0.85rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
 .addon-item .addon-desc { color: var(--muted); font-size: 0.8rem; line-height: 1.5; margin-bottom: 8px; }
-.addon-item .addon-price { color: var(--accent); font-family: var(--heading); font-weight: 700; font-size: 1rem; }
+.addon-item .addon-price { color: var(--accent); font-family: var(--font-numeric); font-feature-settings: "tnum" 1, "lnum" 1; font-weight: 700; font-size: 1rem; }
 .addon-item .addon-note { font-size: 0.72rem; color: var(--muted-dark); font-style: italic; margin-top: 4px; }
 .addon-item .addon-expand { font-size: 0.72rem; color: var(--accent); cursor: pointer; margin-top: 6px; background: none; border: none; font-family: var(--body); padding: 0; }
 .addon-item .addon-expand:hover { color: var(--accent-light); }
@@ -396,7 +399,7 @@ section { padding: 96px 48px; }
 .member-card { background: var(--bg-secondary); border: 1px solid rgba(29,111,235,0.15); border-radius: 6px; padding: 24px; margin-bottom: 16px; transition: all 0.3s; }
 .member-card:hover { border-color: rgba(29,111,235,0.4); }
 .member-card .mc-tier { font-family: var(--heading); font-size: 0.8rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--steel); margin-bottom: 4px; }
-.member-card .mc-price { font-family: var(--heading); font-size: 2rem; font-weight: 800; color: var(--white); margin-bottom: 12px; }
+.member-card .mc-price { font-family: var(--font-numeric); font-feature-settings: "tnum" 1, "lnum" 1; font-size: 2rem; font-weight: 700; color: var(--white); margin-bottom: 12px; }
 .member-card .mc-price span { font-size: 0.9rem; font-weight: 500; color: var(--muted); }
 .member-card ul { list-style: none; margin-bottom: 16px; }
 .member-card li { padding: 4px 0; font-size: 0.85rem; color: var(--muted); display: flex; align-items: center; gap: 8px; }
@@ -707,11 +710,11 @@ img.lazy-fade.loaded { opacity: 1; }
     <div class="trust-label">Vehicle Pricing</div>
   </div>
   <div class="trust-item">
-    <div class="trust-number">183+</div>
+    <div class="trust-number numeric">183+</div>
     <div class="trust-label">Google Reviews</div>
   </div>
   <div class="trust-item">
-    <div class="trust-number">7 Days</div>
+    <div class="trust-number numeric">7 Days</div>
     <div class="trust-label">Open Every Day</div>
   </div>
   <div class="trust-item">
@@ -1503,7 +1506,7 @@ function renderWashCards(containerId) {
       '<div class="tier-name">' + w.name + '</div>' +
       '<div class="tier-tagline">' + w.tagline + '</div>' +
       '<div class="tier-time">' + w.timeNormal + ' &middot; Peak ' + w.timePeak + '</div>' +
-      '<div class="price">$' + price + '</div>' +
+      '<div class="price"><span class="dollar">$</span>' + price + '</div>' +
       '<div class="price-from">' + tierLabel + '</div>' +
       '<ul>' + features + '</ul>' +
       '<button class="' + btnClass + '" onclick="openBooking(\'' + w.name + '\')">Book Now</button></div>';
@@ -1519,12 +1522,12 @@ function renderDetailCards(containerId) {
   // Interior Detail
   const int = PRICING.detailing.interior;
   const intPrice = int.prices[v] || int.prices.sedan;
-  html += '<div class="pricing-card"><div class="tier-name">' + int.name + '</div><div class="tier-tagline">' + int.tagline + '</div><div class="tier-time">' + int.timeNormal + ' &middot; Peak ' + int.timePeak + '</div><div class="price" style="font-size:3rem;">$' + intPrice + '</div><div class="price-from">' + tierLabel + ' &mdash; Premium wash included</div><ul>' + int.features.map(f => '<li class="included">' + checkSvg() + ' ' + f + '</li>').join('') + '</ul><button class="btn btn-outline" onclick="openBooking(\'' + int.name + '\')">Book Now</button></div>';
+  html += '<div class="pricing-card"><div class="tier-name">' + int.name + '</div><div class="tier-tagline">' + int.tagline + '</div><div class="tier-time">' + int.timeNormal + ' &middot; Peak ' + int.timePeak + '</div><div class="price" style="font-size:3rem;"><span class="dollar">$</span>' + intPrice + '</div><div class="price-from">' + tierLabel + ' &mdash; Premium wash included</div><ul>' + int.features.map(f => '<li class="included">' + checkSvg() + ' ' + f + '</li>').join('') + '</ul><button class="btn btn-outline" onclick="openBooking(\'' + int.name + '\')">Book Now</button></div>';
   // Full Detail
   const full = PRICING.detailing.full;
   const fullPrice = full.prices[v] || full.prices.sedan;
   let fullFeatures = '<div class="detail-features-split"><div class="feat-col"><h5>Exterior</h5>' + full.exterior.map(f => '<li class="included">' + checkSvg() + ' ' + f + '</li>').join('') + '</div><div class="feat-col"><h5>Interior</h5>' + full.interior.map(f => '<li class="included">' + checkSvg() + ' ' + f + '</li>').join('') + '</div></div>';
-  html += '<div class="pricing-card featured"><div class="popular-badge">Best Value</div><div class="tier-name">' + full.name + '</div><div class="tier-tagline">' + full.tagline + '</div><div class="tier-time">' + full.timeNormal + ' &middot; Peak ' + full.timePeak + '</div><div class="price" style="font-size:3rem;">$' + fullPrice + '</div><div class="price-from">' + tierLabel + '</div><ul style="list-style:none;">' + fullFeatures + '</ul><button class="btn btn-primary" onclick="openBooking(\'' + full.name + '\')">Book Now</button></div>';
+  html += '<div class="pricing-card featured"><div class="popular-badge">Best Value</div><div class="tier-name">' + full.name + '</div><div class="tier-tagline">' + full.tagline + '</div><div class="tier-time">' + full.timeNormal + ' &middot; Peak ' + full.timePeak + '</div><div class="price" style="font-size:3rem;"><span class="dollar">$</span>' + fullPrice + '</div><div class="price-from">' + tierLabel + '</div><ul style="list-style:none;">' + fullFeatures + '</ul><button class="btn btn-primary" onclick="openBooking(\'' + full.name + '\')">Book Now</button></div>';
   el.innerHTML = html;
 }
 
@@ -1563,7 +1566,7 @@ function renderMembershipCards() {
     { key: 'large-suv', ...PRICING.membership['large-suv'] }
   ];
   el.innerHTML = tiers.map(t => {
-    return '<div class="member-card" data-aos="fade-up"><div class="mc-tier">' + t.label + '</div><div class="mc-price">$' + t.price + '<span>/month</span></div><ul>' +
+    return '<div class="member-card" data-aos="fade-up"><div class="mc-tier">' + t.label + '</div><div class="mc-price"><span class="dollar">$</span>' + t.price + '<span>/month</span></div><ul>' +
       '<li>' + checkSvg() + ' Up to 2 Premium Washes per month</li>' +
       '<li>' + checkSvg() + ' 15% Off Add-Ons</li>' +
       '<li>' + checkSvg() + ' 10% Off Gloss Polish</li></ul>' +
